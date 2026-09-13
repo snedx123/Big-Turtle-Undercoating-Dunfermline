@@ -445,32 +445,59 @@
   }
   .plate-foot a:hover{ text-decoration: underline; }
 
-  /* ---------- Gallery ---------- */
-  .gallery-grid{
+  /* ---------- Work showcase ---------- */
+  .work-grid{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
   }
-  .gallery-item{
+  .work-card{
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .work-photos{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .work-photos figure{
     position: relative;
     overflow: hidden;
-    border-radius: var(--radius-sm);
+    margin: 0;
   }
-  .gallery-item img{
+  .work-photos img{
     width: 100%;
     height: 100%;
     object-fit: cover;
     aspect-ratio: 1/1;
     transition: transform 0.5s ease;
   }
-  .gallery-item:hover img{ transform: scale(1.08); }
-  .gallery-item figcaption{
+  .work-card:hover .work-photos img{ transform: scale(1.08); }
+  .work-photos .tag{
     position: absolute;
-    left: 0; right: 0; bottom: 0;
-    padding: 10px 12px;
-    font-size: 0.78rem;
+    top: 8px;
+    left: 8px;
+    background: rgba(14,31,23,0.78);
     color: var(--white);
-    background: linear-gradient(0deg, rgba(14,31,23,0.88), rgba(14,31,23,0));
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .work-card-body{
+    padding: 18px 22px 22px;
+  }
+  .work-card-body h3{
+    font-size: 1.05rem;
+  }
+  .work-card-body p{
+    margin: 6px 0 0;
+    color: var(--grey);
+    font-size: 0.92rem;
   }
 
   /* ---------- Why list ---------- */
@@ -717,7 +744,7 @@
     .hero-photo{ order: -1; }
     .shell-accent{ display: none; }
     .plate-head{ flex-direction: column; align-items: flex-start; gap: 4px; }
-    .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+    .work-grid{ grid-template-columns: 1fr; }
     .why-item{ grid-template-columns: 1fr; gap: 6px; }
     .coverage{ grid-template-columns: 1fr; }
     .coverage-photo{ order: -1; }
@@ -726,7 +753,7 @@
   }
   @media (max-width: 520px){
     .wrap{ padding: 0 18px; }
-    .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+    .work-photos{ grid-template-columns: 1fr 1fr; }
     .btn{ width: 100%; }
     .hero-actions{ flex-direction: column; }
     .quote-card{ padding: 22px; }
@@ -815,25 +842,55 @@
     <div class="wrap">
       <div class="section-head reveal">
         <h2>Recent work</h2>
-        <p>A look underneath a recent job. Every panel, axle and sill gets treated and coated, not just the bits you can see with the wheels on.</p>
+        <p>A look underneath recent jobs. Every panel, axle and sill gets treated and coated, not just the bits you can see with the wheels on.</p>
       </div>
-      <div class="gallery-grid reveal-stagger">
-        <figure class="gallery-item">
-          <img src="images/hero-photo.jpg" alt="Rear axle and differential finished in fresh black undercoating" loading="lazy">
-          <figcaption>Axle and differential</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="images/gallery-chassis.jpg" alt="Full underbody and chassis rails coated in fresh black rust-proofing" loading="lazy">
-          <figcaption>Chassis rails, fully coated</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="images/gallery-front-axle.jpg" alt="Front axle and undercarriage coated in gloss black rust-proofing" loading="lazy">
-          <figcaption>Front axle, ready to go</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="images/gallery-sills.jpg" alt="Rear underbody, exhaust and sills coated in black rust-proofing" loading="lazy">
-          <figcaption>Sills and rear underbody</figcaption>
-        </figure>
+      <div class="work-grid reveal-stagger">
+        <article class="work-card">
+          <div class="work-photos">
+            <figure>
+              <span class="tag">Before</span>
+              <img src="images/work-ranger-before.jpg" alt="Ford Ranger rear axle heavily rusted before treatment" loading="lazy">
+            </figure>
+            <figure>
+              <span class="tag">After</span>
+              <img src="images/work-ranger-after.jpg" alt="Ford Ranger rear axle after rust removal and black undercoating" loading="lazy">
+            </figure>
+          </div>
+          <div class="work-card-body">
+            <h3>Ford Ranger</h3>
+            <p>Rusted rear axle stripped back, treated and fully undercoated.</p>
+          </div>
+        </article>
+        <article class="work-card">
+          <div class="work-photos">
+            <figure>
+              <span class="tag">Before</span>
+              <img src="images/work-l200-before.jpg" alt="Mitsubishi L200 rear axle heavily rusted before treatment" loading="lazy">
+            </figure>
+            <figure>
+              <span class="tag">After</span>
+              <img src="images/work-l200-after.jpg" alt="Mitsubishi L200 rear axle after full rust removal, acid treatment and coating" loading="lazy">
+            </figure>
+          </div>
+          <div class="work-card-body">
+            <h3>Mitsubishi L200</h3>
+            <p>Full rust removal, acid treatment and a fresh coat throughout.</p>
+          </div>
+        </article>
+        <article class="work-card">
+          <div class="work-photos">
+            <figure>
+              <img src="images/work-suzuki-1.jpg" alt="Suzuki underbody rust-proofed and fully coated in black" loading="lazy">
+            </figure>
+            <figure>
+              <img src="images/work-suzuki-2.jpg" alt="Suzuki rear axle and exhaust freshly undercoated" loading="lazy">
+            </figure>
+          </div>
+          <div class="work-card-body">
+            <h3>Suzuki</h3>
+            <p>A nice little runabout, tidied up well for an older car.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
