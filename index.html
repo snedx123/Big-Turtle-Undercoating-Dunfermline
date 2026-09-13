@@ -929,15 +929,16 @@
 <script>
   // ---------------------------------------------------------------
   // QUOTE FORM SUBMISSION
-  // Paste your backend endpoint URL below (the one that will send
-  // the enquiry on to BTUDunfermline@outlook.com). It should accept
-  // a POST request with a JSON body shaped like this:
-  //   {
-  //     name: "...", phone: "...", email: "...",
-  //     vehicleType: "...", makeModel: "...", notes: "..."
-  //   }
+  // Sends straight to BTUDunfermline@outlook.com via Web3Forms
+  // (https://web3forms.com) — a free service that emails you form
+  // submissions with no server to run or maintain.
+  //
+  // Setup (one-time, ~2 minutes):
+  //   1. Go to https://web3forms.com and enter BTUDunfermline@outlook.com
+  //   2. Check that inbox for a confirmation email and click the link
+  //   3. Web3Forms gives you an "Access Key" — paste it below
   // ---------------------------------------------------------------
-  const QUOTE_FORM_ENDPOINT = ""; // <-- put your backend URL here
+  const WEB3FORMS_ACCESS_KEY = ""; // <-- paste your Web3Forms access key here
 
   const form = document.getElementById('quote-form');
   const statusBox = document.getElementById('q-status');
@@ -955,6 +956,9 @@
     if (form.company.value) { return; }
 
     const payload = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: 'New quote request — Big Turtle Undercoating',
+      from_name: 'Big Turtle Undercoating website',
       name: form.name.value.trim(),
       phone: form.phone.value.trim(),
       email: form.email.value.trim(),
@@ -968,7 +972,7 @@
       return;
     }
 
-    if (!QUOTE_FORM_ENDPOINT) {
+    if (!WEB3FORMS_ACCESS_KEY) {
       showStatus('This form isn\'t connected to an inbox yet. In the meantime, call 07526 904715 or email BTUDunfermline@outlook.com.', 'error');
       return;
     }
@@ -977,13 +981,14 @@
     submitBtn.textContent = 'Sending...';
 
     try {
-      const res = await fetch(QUOTE_FORM_ENDPOINT, {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload)
       });
 
-      if (!res.ok) throw new Error('Request failed');
+      const result = await res.json();
+      if (!res.ok || !result.success) throw new Error(result.message || 'Request failed');
 
       showStatus('Thanks, ' + payload.name.split(' ')[0] + '. We\'ve got your details and will be in touch shortly.', 'success');
       form.reset();
